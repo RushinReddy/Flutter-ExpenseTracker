@@ -1,0 +1,143 @@
+Card(
+              elevation: 10,
+              color: Colors.black,
+              child: Row(
+                children: [
+                  Container(
+                    margin: const EdgeInsets.all(10.0),
+                    child: Text(
+                      'Rs. ${txn.txnAmount}',
+                      style: TextStyle(
+                          color: Colors.amber[600],
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        margin: EdgeInsets.all(10),
+                        child: Text(
+                          txn.txnTitle,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.fromLTRB(10, 0, 10, 10),
+                        child: Text(
+                          DateFormat.MMMEd().format(txn.txnDateTime),
+                          style: TextStyle(
+                              color: Colors.white60,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w300),
+                        ),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            );
+
+
+            /*Transaction(
+        txnId: 't1',
+        txnAmount: 2500,
+        txnTitle: 'Slippers',
+        txnDateTime: DateTime.now()),
+    Transaction(
+        txnId: 't2',
+        txnAmount: 6800,
+        txnTitle: 'Clothes',
+        txnDateTime: DateTime.now()),
+    Transaction(
+        txnId: 't3',
+        txnAmount: 10000,
+        txnTitle: 'ApplePencil',
+        txnDateTime: DateTime.now()),
+    Transaction(
+        txnId: 't1',
+        txnAmount: 2500,
+        txnTitle: 'Slippers',
+        txnDateTime: DateTime.now()),
+    Transaction(
+        txnId: 't2',
+        txnAmount: 6800,
+        txnTitle: 'Clothes',
+        txnDateTime: DateTime.now()),
+    Transaction(
+        txnId: 't3',
+        txnAmount: 10000,
+        txnTitle: 'ApplePencil',
+        txnDateTime: DateTime.now()),
+    Transaction(
+        txnId: 't1',
+        txnAmount: 2500,
+        txnTitle: 'Slippers',
+        txnDateTime: DateTime.now()),
+    Transaction(
+        txnId: 't2',
+        txnAmount: 6800,
+        txnTitle: 'Clothes',
+        txnDateTime: DateTime.now()),
+    Transaction(
+        txnId: 't3',
+        txnAmount: 10000,
+        txnTitle: 'ApplePencil',
+        txnDateTime: DateTime.now()),
+    Transaction(
+        txnId: 't2',
+        txnAmount: 6800,
+        txnTitle: 'Clothes',
+        txnDateTime: DateTime.now()),
+    Transaction(
+        txnId: 't3',
+        txnAmount: 10000,
+        txnTitle: 'ApplePencil',
+        txnDateTime: DateTime.now()),
+    Transaction(
+        txnId: 't1',
+        txnAmount: 2500,
+        txnTitle: 'Slippers',
+        txnDateTime: DateTime.now()),
+    Transaction(
+        txnId: 't2',
+        txnAmount: 6800,
+        txnTitle: 'Clothes',
+        txnDateTime: DateTime.now()),
+    Transaction(
+        txnId: 't3',
+        txnAmount: 10000,
+        txnTitle: 'ApplePencil',
+        txnDateTime: DateTime.now()),*/
+
+
+
+        final List<Transaction> recentTxns;
+
+  Chart(this.recentTxns);
+
+  List<Map<String, Object>> get groupedTxnValues {
+    return List.generate(7, (index) {
+      final weekDay = DateTime.now().subtract(
+        Duration(days: index),
+      );
+      var totalSum = 0.0;
+
+      for (var i = 0; i < recentTxns.length; i++) {
+        if (weekDay.day == recentTxns[i].txnDateTime.day &&
+            weekDay.month == recentTxns[i].txnDateTime.day &&
+            weekDay.year == recentTxns[i].txnDateTime.year) {
+          totalSum += recentTxns[i].txnAmount;
+        }
+      }
+
+      return {
+        'day': DateFormat.E().format(weekDay),
+        'amount': totalSum,
+      };
+    });
+  }
